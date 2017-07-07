@@ -1,0 +1,23 @@
+{
+  "name": "wx_template",
+  "description": "wxapp template by gulp",
+  "main": "index.js",
+  "authors": [
+    "343938328@qq.com"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "wxapp"
+  ],
+  "homepage": "https://github.com/ogoss/wxapp-template",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "es6-promise": "^4.1.1"
+  }
+}

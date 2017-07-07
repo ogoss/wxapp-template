@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const runSequence = require('run-sequence');
+const mainBowerFiles = require('main-bower-files');
 const del = require('del');
 
 const $ = gulpLoadPlugins();
@@ -10,6 +11,17 @@ const dist = './dist/';
 let dev = true;
 
 gulp.task('clean', del.bind(null, ['dist/*']));
+
+gulp.task('clean:bower', del.bind(null, ['dist/plugins/*']));
+
+gulp.task('bower', ['clean:bower'], () => {
+  return gulp.src(mainBowerFiles())
+    .pipe($.uglify())
+    .pipe($.rename((path) => {
+      path.extname = '.min.js';
+    }))
+    .pipe(gulp.dest(dist + 'plugins'));
+});
 
 gulp.task('jsonlint', () => {
   return gulp.src(app + '**/*.json')
@@ -88,7 +100,7 @@ gulp.task('size', () => {
   return gulp.src(dist + '**/*').pipe($.size({ title: 'build', gzip: true }));
 });
 
-gulp.task('build', ['json', 'wxml', 'js', 'wxss']);
+gulp.task('build', ['bower', 'json', 'wxml', 'js', 'wxss']);
 
 gulp.task('dev', ['clean'], () => {
   runSequence('build', 'assets', () => {
@@ -99,6 +111,7 @@ gulp.task('dev', ['clean'], () => {
     gulp.watch(app + '**/*.js', ['js']);
     gulp.watch(app + '**/*.scss', ['wxss']);
     gulp.watch(app + 'assets/**', ['assets']);
+    gulp.watch('./bower.json', ['bower']);
   });
 });
 

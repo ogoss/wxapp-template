@@ -1,9 +1,7 @@
 {
   "extends": "standard",
-  "globals": {
-  	"App": true,
-  	"wx": true,
-  	"Page": true,
-  	"getApp": true
+  "rules": {
+  	"no-unused-vars": 0,
+  	"no-undef": 0
   }
 }
