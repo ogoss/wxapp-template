@@ -5,18 +5,15 @@ export default function(url, { method = 'GET', options }) {
     let params = {
       url,
       method,
+      header: { 'Content-Type': 'json' },
+      data: Object.assign({}, options),
       success(res) {
-        console.log(res)
         resolve(res)
       },
       fail(err) {
-        console.log(err)
         reject(err)
       }
     }
-
-    if (options) params = Ojbect.assign(params, options)
-
     wx.request(params)
   })
 }
