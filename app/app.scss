@@ -1,1 +1,5 @@
-/**app.wxss**/
+@import './plugins/zanui-weapp/index.wxss';
+
+.container {
+  width: 100%;
+}

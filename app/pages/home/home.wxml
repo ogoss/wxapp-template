@@ -1,7 +1,4 @@
-<view>{{title}}</view>
-<view wx:for="{{subjects}}" wx:for-item="item" wx:key="item.id">
-  <text>{{item.title}}</text>
-  <view>
-    <image mode="scaleToFill" style="width:288rpx; height: 465rpx;" src="{{item.images.large}}"></image>
-  </view>
+<view class="container">
+	<view class="doc-title title-wrap">{{title}}</view>
+	<view class="list-wrap">123</view>
 </view>

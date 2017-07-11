@@ -5,14 +5,13 @@ const app = getApp();
 
 Page({
   data: {
-    title: '',
+    title: `正在上映的电影 - ${app.data.city}`,
     subjects: []
   },
   onReady() {
     http.wxRequest(cfg.inTheaters, { options: { city: app.data.city, start: 0, count: 32 } })
       .then((msg) => {
         this.setData({
-          title: msg.data.title,
           subjects: msg.data.subjects
         })
       });
