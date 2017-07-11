@@ -1,14 +1,20 @@
 import http from '../../utils/http'
 import cfg from '../../utils/config'
 
+const app = getApp();
+
 Page({
   data: {
-    text: 'This is Home!'
+    title: '',
+    subjects: []
   },
   onReady() {
-    http(cfg.requestUrl, { options: { data1: 'data1' } })
+    http.wxRequest(cfg.inTheaters, { options: { city: app.data.city, start: 0, count: 32 } })
       .then((msg) => {
-        console.log(msg);
+        this.setData({
+          title: msg.data.title,
+          subjects: msg.data.subjects
+        })
       });
   }
 })

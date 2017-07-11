@@ -52,14 +52,14 @@ gulp.task('wxml', () => {
 });
 
 gulp.task('eslint', () => {
-  return gulp.src(app + '**/*.js')
+  return gulp.src([app + '**/*.js', '!' + app + 'plugins/*.js'])
     .pipe($.eslint({ fix: true }))
     .pipe($.eslint.format())
     .pipe($.eslint.failAfterError());
 });
 
 gulp.task('js', ['eslint'], () => {
-  return gulp.src(app + '**/*.js')
+  return gulp.src([app + '**/*.js', '!' + app + 'plugins/*.js'])
     .pipe($.babel())
     .pipe($.if(!dev, $.uglify()))
     .pipe(gulp.dest(dist));
@@ -96,11 +96,16 @@ gulp.task('imagemin', () => {
     .pipe(gulp.dest(dist + 'assets'));
 });
 
+gulp.task('extra', () => {
+  return gulp.src(app + 'plugins/**')
+    .pipe(gulp.dest(dist + 'plugins'));
+});
+
 gulp.task('size', () => {
   return gulp.src(dist + '**/*').pipe($.size({ title: 'build', gzip: true }));
 });
 
-gulp.task('build', ['bower', 'json', 'wxml', 'js', 'wxss']);
+gulp.task('build', ['bower', 'json', 'wxml', 'js', 'wxss', 'extra']);
 
 gulp.task('dev', ['clean'], () => {
   runSequence('build', 'assets', () => {

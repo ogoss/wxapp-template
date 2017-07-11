@@ -1,1 +1,7 @@
-<view>{{text}}</view>
+<view>{{title}}</view>
+<view wx:for="{{subjects}}" wx:for-item="item" wx:key="item.id">
+  <text>{{item.title}}</text>
+  <view>
+    <image mode="scaleToFill" style="width:288rpx; height: 465rpx;" src="{{item.images.large}}"></image>
+  </view>
+</view>

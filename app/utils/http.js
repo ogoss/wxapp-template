@@ -1,8 +1,10 @@
 import Promise from '../plugins/es6-promise.min'
 
-export default function(url, { method = 'GET', options }) {
+const http = {}
+
+http.wxRequest = (url, { method = 'GET', options }) => {
   return new Promise((resolve, reject) => {
-    let params = {
+    wx.request({
       url,
       method,
       header: { 'Content-Type': 'json' },
@@ -13,7 +15,21 @@ export default function(url, { method = 'GET', options }) {
       fail(err) {
         reject(err)
       }
-    }
-    wx.request(params)
+    })
   })
 }
+
+http.getLocation = () => {
+  return new Promise((resolve, reject) => {
+    wx.getLocation({
+      success(res) {
+        resolve(res)
+      },
+      fail(res) {
+        reject(err)
+      }
+    })
+  })
+}
+
+export default http
