@@ -72,7 +72,7 @@ gulp.task('wxss', () => {
       precision: 10,
       includePaths: ['.']
     }).on('error', $.sass.logError))
-    .pipe($.autoprefixer({ browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'] }))
+    // .pipe($.autoprefixer({ browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'] }))
     .pipe($.if(!dev, $.cssnano({
       autoprefixer: false,
       reduceIdents: false,
@@ -96,11 +96,16 @@ gulp.task('imagemin', () => {
     .pipe(gulp.dest(dist + 'assets'));
 });
 
+gulp.task('plugins', () => {
+  return gulp.src(app + 'plugins/**')
+    .pipe(gulp.dest(dist + 'plugins'));
+});
+
 gulp.task('size', () => {
   return gulp.src(dist + '**/*').pipe($.size({ title: 'build', gzip: true }));
 });
 
-gulp.task('build', ['bower', 'json', 'wxml', 'js', 'wxss']);
+gulp.task('build', ['bower', 'json', 'wxml', 'js', 'wxss'. 'plugins']);
 
 gulp.task('dev', ['clean'], () => {
   runSequence('build', 'assets', () => {
